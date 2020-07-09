@@ -1,0 +1,2 @@
+- Use CMake
+- Add DarknetDll manually

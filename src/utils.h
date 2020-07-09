@@ -1,10 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
+
 #include "darknet.h"
 #include "list.h"
 
 #include <stdio.h>
 #include <time.h>
+#include <pthread.h>
 
 #ifndef M_PI
 #define M_PI       3.14159265358979323846   // pi
@@ -13,6 +15,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+LIB_API pthread_t load_data(load_args args);
+LIB_API pthread_t load_data_in_thread(load_args args);
 
 LIB_API void free_ptrs(void **ptrs, int n);
 LIB_API void top_k(float *a, int n, int k, int *index);

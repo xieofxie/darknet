@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <assert.h>
-#include <pthread.h>
+// #include <pthread.h>
 
 #ifndef LIB_API
 #ifdef LIB_EXPORTS
@@ -1030,9 +1030,9 @@ LIB_API void free_layer(layer l);
 
 // data.c
 LIB_API void free_data(data d);
-LIB_API pthread_t load_data(load_args args);
+// LIB_API pthread_t load_data(load_args args);
 LIB_API void free_load_threads(void *ptr);
-LIB_API pthread_t load_data_in_thread(load_args args);
+// LIB_API pthread_t load_data_in_thread(load_args args);
 LIB_API void *load_thread(void *ptr);
 
 // dark_cuda.h
