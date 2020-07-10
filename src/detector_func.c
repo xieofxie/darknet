@@ -44,7 +44,7 @@ DetectorState* InitDetector(const char* name_list, const char* cfgfile, const ch
     return result;
 }
 
-void Detect(DetectorState* state, const char* input, const char* output, float thresh,
+DetectResult* Detect(DetectorState* state, const char* input, const char* output, float thresh,
     float hier_thresh, int ext_output, int letter_box)
 {
     float nms = .45;    // 0.4F
@@ -70,6 +70,10 @@ void Detect(DetectorState* state, const char* input, const char* output, float t
         if (l.nms_kind == DEFAULT_NMS) do_nms_sort(dets, nboxes, l.classes, nms);
         else diounms_sort(dets, nboxes, l.classes, nms, l.nms_kind, l.beta_nms);
     }
+
+    int selected_detections_num;
+    detection_with_class* selected_detections = get_actual_detections(dets, nboxes, thresh, &selected_detections_num, state->names);
+
     if (output) {
         draw_detections_v3(im, dets, nboxes, thresh, state->names, NULL, l.classes, ext_output);
         save_image(im, output);
@@ -78,6 +82,17 @@ void Detect(DetectorState* state, const char* input, const char* output, float t
     free_detections(dets, nboxes);
     free_image(im);
     free_image(sized);
+
+    DetectResult* result = malloc(sizeof(DetectResult));
+    result->results = selected_detections;
+    result->num = selected_detections_num;
+    return result;
+}
+
+void DeinitResult(DetectResult* result)
+{
+    free(result->results);
+    free(result);
 }
 
 void DeinitDetector(DetectorState* state)

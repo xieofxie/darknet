@@ -1,2 +1,4 @@
 - Use CMake
 - Add DarknetDll manually
+- Copy pthreadGC2.dll, pthreadVC2.dll
+- Sync darknetd.dll

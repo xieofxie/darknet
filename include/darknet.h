@@ -869,6 +869,13 @@ typedef struct detection{
     float *embeddings;  // embeddings for tracking
 } detection;
 
+typedef struct detection_with_class {
+    detection det;
+    // The most probable class id: the best class index in this->prob.
+    // Is filled temporary when processing results, otherwise not initialized
+    int best_class;
+} detection_with_class;
+
 // network.c -batch inference
 typedef struct det_num_pair {
     int num;
